@@ -20,6 +20,14 @@
 		3725F7841E35FD8100B9199F /* CDPhotoAssetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3725F7821E35FD8100B9199F /* CDPhotoAssetViewController.m */; };
 		3725F78A1E35FDF700B9199F /* CDPhotoAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 3725F7871E35FDF600B9199F /* CDPhotoAsset.m */; };
 		3725F78B1E35FDF700B9199F /* CDPhotoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3725F7891E35FDF700B9199F /* CDPhotoManager.m */; };
+		3725F78E1E3603C600B9199F /* CDBrowsePhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3725F78D1E3603C600B9199F /* CDBrowsePhotoViewController.m */; };
+		3725F79F1E36065F00B9199F /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3725F7921E36065F00B9199F /* TAAbstractDotView.m */; };
+		3725F7A01E36065F00B9199F /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3725F7941E36065F00B9199F /* TAAnimatedDotView.m */; };
+		3725F7A11E36065F00B9199F /* TADotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3725F7961E36065F00B9199F /* TADotView.m */; };
+		3725F7A21E36065F00B9199F /* TAPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 3725F7981E36065F00B9199F /* TAPageControl.m */; };
+		3725F7A31E36065F00B9199F /* SDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3725F79A1E36065F00B9199F /* SDCollectionViewCell.m */; };
+		3725F7A41E36065F00B9199F /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3725F79C1E36065F00B9199F /* SDCycleScrollView.m */; };
+		3725F7A51E36065F00B9199F /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 3725F79E1E36065F00B9199F /* UIView+SDExtension.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +54,22 @@
 		3725F7871E35FDF600B9199F /* CDPhotoAsset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDPhotoAsset.m; sourceTree = "<group>"; };
 		3725F7881E35FDF700B9199F /* CDPhotoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDPhotoManager.h; sourceTree = "<group>"; };
 		3725F7891E35FDF700B9199F /* CDPhotoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDPhotoManager.m; sourceTree = "<group>"; };
+		3725F78C1E3603C600B9199F /* CDBrowsePhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDBrowsePhotoViewController.h; sourceTree = "<group>"; };
+		3725F78D1E3603C600B9199F /* CDBrowsePhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDBrowsePhotoViewController.m; sourceTree = "<group>"; };
+		3725F7911E36065F00B9199F /* TAAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAbstractDotView.h; sourceTree = "<group>"; };
+		3725F7921E36065F00B9199F /* TAAbstractDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAbstractDotView.m; sourceTree = "<group>"; };
+		3725F7931E36065F00B9199F /* TAAnimatedDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAnimatedDotView.h; sourceTree = "<group>"; };
+		3725F7941E36065F00B9199F /* TAAnimatedDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAnimatedDotView.m; sourceTree = "<group>"; };
+		3725F7951E36065F00B9199F /* TADotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TADotView.h; sourceTree = "<group>"; };
+		3725F7961E36065F00B9199F /* TADotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TADotView.m; sourceTree = "<group>"; };
+		3725F7971E36065F00B9199F /* TAPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAPageControl.h; sourceTree = "<group>"; };
+		3725F7981E36065F00B9199F /* TAPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAPageControl.m; sourceTree = "<group>"; };
+		3725F7991E36065F00B9199F /* SDCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCollectionViewCell.h; sourceTree = "<group>"; };
+		3725F79A1E36065F00B9199F /* SDCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCollectionViewCell.m; sourceTree = "<group>"; };
+		3725F79B1E36065F00B9199F /* SDCycleScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCycleScrollView.h; sourceTree = "<group>"; };
+		3725F79C1E36065F00B9199F /* SDCycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCycleScrollView.m; sourceTree = "<group>"; };
+		3725F79D1E36065F00B9199F /* UIView+SDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SDExtension.h"; sourceTree = "<group>"; };
+		3725F79E1E36065F00B9199F /* UIView+SDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SDExtension.m"; sourceTree = "<group>"; };
 		5E874B1AD3626A4B98D0A1AD /* Pods-CDLibPhotos.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CDLibPhotos.release.xcconfig"; path = "Pods/Target Support Files/Pods-CDLibPhotos/Pods-CDLibPhotos.release.xcconfig"; sourceTree = "<group>"; };
 		88FCF1362EA1EE9E8BF99BDE /* Pods-CDLibPhotos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CDLibPhotos.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CDLibPhotos/Pods-CDLibPhotos.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -125,6 +149,7 @@
 		372044AA1E34B7850025FDA2 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				3725F78F1E36065F00B9199F /* SDCycleScrollView */,
 				3725F7781E35F16300B9199F /* UIView+Frame.h */,
 				3725F7791E35F16300B9199F /* UIView+Frame.m */,
 			);
@@ -165,6 +190,8 @@
 				3725F7801E35FD8100B9199F /* CDAlbumGroupViewController.m */,
 				3725F7811E35FD8100B9199F /* CDPhotoAssetViewController.h */,
 				3725F7821E35FD8100B9199F /* CDPhotoAssetViewController.m */,
+				3725F78C1E3603C600B9199F /* CDBrowsePhotoViewController.h */,
+				3725F78D1E3603C600B9199F /* CDBrowsePhotoViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -178,6 +205,35 @@
 				3725F7871E35FDF600B9199F /* CDPhotoAsset.m */,
 			);
 			path = Photos;
+			sourceTree = "<group>";
+		};
+		3725F78F1E36065F00B9199F /* SDCycleScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				3725F7901E36065F00B9199F /* PageControl */,
+				3725F7991E36065F00B9199F /* SDCollectionViewCell.h */,
+				3725F79A1E36065F00B9199F /* SDCollectionViewCell.m */,
+				3725F79B1E36065F00B9199F /* SDCycleScrollView.h */,
+				3725F79C1E36065F00B9199F /* SDCycleScrollView.m */,
+				3725F79D1E36065F00B9199F /* UIView+SDExtension.h */,
+				3725F79E1E36065F00B9199F /* UIView+SDExtension.m */,
+			);
+			path = SDCycleScrollView;
+			sourceTree = "<group>";
+		};
+		3725F7901E36065F00B9199F /* PageControl */ = {
+			isa = PBXGroup;
+			children = (
+				3725F7911E36065F00B9199F /* TAAbstractDotView.h */,
+				3725F7921E36065F00B9199F /* TAAbstractDotView.m */,
+				3725F7931E36065F00B9199F /* TAAnimatedDotView.h */,
+				3725F7941E36065F00B9199F /* TAAnimatedDotView.m */,
+				3725F7951E36065F00B9199F /* TADotView.h */,
+				3725F7961E36065F00B9199F /* TADotView.m */,
+				3725F7971E36065F00B9199F /* TAPageControl.h */,
+				3725F7981E36065F00B9199F /* TAPageControl.m */,
+			);
+			path = PageControl;
 			sourceTree = "<group>";
 		};
 		48AAE855BDD89FAE4B136409 /* Pods */ = {
@@ -314,13 +370,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				3725F77A1E35F16300B9199F /* UIView+Frame.m in Sources */,
+				3725F7A11E36065F00B9199F /* TADotView.m in Sources */,
+				3725F79F1E36065F00B9199F /* TAAbstractDotView.m in Sources */,
 				372044951E34B73E0025FDA2 /* AppDelegate.m in Sources */,
+				3725F7A41E36065F00B9199F /* SDCycleScrollView.m in Sources */,
 				372044921E34B73E0025FDA2 /* main.m in Sources */,
 				3725F7831E35FD8100B9199F /* CDAlbumGroupViewController.m in Sources */,
+				3725F7A51E36065F00B9199F /* UIView+SDExtension.m in Sources */,
+				3725F7A21E36065F00B9199F /* TAPageControl.m in Sources */,
+				3725F78E1E3603C600B9199F /* CDBrowsePhotoViewController.m in Sources */,
 				3725F78A1E35FDF700B9199F /* CDPhotoAsset.m in Sources */,
+				3725F7A31E36065F00B9199F /* SDCollectionViewCell.m in Sources */,
 				3725F7721E35EEFC00B9199F /* CDPhotoCollectionCell.m in Sources */,
 				3725F7841E35FD8100B9199F /* CDPhotoAssetViewController.m in Sources */,
 				3725F78B1E35FDF700B9199F /* CDPhotoManager.m in Sources */,
+				3725F7A01E36065F00B9199F /* TAAnimatedDotView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

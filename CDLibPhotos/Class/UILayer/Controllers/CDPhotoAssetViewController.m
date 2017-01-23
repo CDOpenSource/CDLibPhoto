@@ -9,6 +9,7 @@
 #import "CDPhotoAssetViewController.h"
 #import "CDPhotoCollectionCell.h"
 #import "CDPhotoAsset.h"
+#import "CDBrowsePhotoViewController.h"
 
 @interface CDPhotoAssetViewController()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,CDPhotoCollectionCellDelegate>
 {
@@ -76,7 +77,10 @@
 {
     
 //    CDPhotoAsset *photo = [_photoList objectAtIndex:indexPath.row];
-//    _selectedPhotoLocalIdentifierList
+
+    CDBrowsePhotoViewController *browseController = [[CDBrowsePhotoViewController alloc] initWithPhotoList:self.photoList];
+    [self.navigationController pushViewController:browseController animated:YES];
+    
 }
 
 #pragma mark  Item Size

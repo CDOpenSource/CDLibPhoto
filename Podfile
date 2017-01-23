@@ -7,7 +7,7 @@ target 'CDLibPhotos' do
 
 
 pod 'Masonry','~> 1.0.2'
-pod 'SDCycleScrollView','~> 1.65'
+#pod 'SDCycleScrollView','~> 1.65'
 pod 'UAProgressView','~> 0.1.3'
 
 
