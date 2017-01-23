@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+@class CDPhotoAsset;
 
 @interface CDBrowsePhotoViewController : UIViewController
 
