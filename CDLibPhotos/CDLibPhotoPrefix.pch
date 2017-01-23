@@ -1,0 +1,25 @@
+//
+//  CDLibPhotoPrefix.pch
+//  CDLibPhotos
+//
+//  Created by Cindy on 2017/1/23.
+//  Copyright © 2017年 Comtop. All rights reserved.
+//
+
+#ifndef CDLibPhotoPrefix_pch
+#define CDLibPhotoPrefix_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#import "Masonry.h"
+#import "UIView+Frame.h"
+
+
+
+#define SCREEN_WIDTH   [UIScreen mainScreen].bounds.size.width
+#define SCREEN_HEIGHT  [UIScreen mainScreen].bounds.size.height
+
+
+
+#endif /* CDLibPhotoPrefix_pch */

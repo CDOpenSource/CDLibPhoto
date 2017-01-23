@@ -1,0 +1,483 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2D028B56892B27129699B9CD /* libPods-CDLibPhotos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 002EFD0DDCE7AFBE63404917 /* libPods-CDLibPhotos.a */; };
+		372044921E34B73E0025FDA2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 372044911E34B73E0025FDA2 /* main.m */; };
+		372044951E34B73E0025FDA2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 372044941E34B73E0025FDA2 /* AppDelegate.m */; };
+		3720449D1E34B73F0025FDA2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3720449C1E34B73F0025FDA2 /* Assets.xcassets */; };
+		372044A01E34B73F0025FDA2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3720449E1E34B73F0025FDA2 /* LaunchScreen.storyboard */; };
+		3725F7721E35EEFC00B9199F /* CDPhotoCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3725F7711E35EEFC00B9199F /* CDPhotoCollectionCell.m */; };
+		3725F7761E35F08700B9199F /* photo_image_selected_off_status_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3725F7741E35F08700B9199F /* photo_image_selected_off_status_icon.png */; };
+		3725F7771E35F08700B9199F /* photo_image_selected_on_status_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3725F7751E35F08700B9199F /* photo_image_selected_on_status_icon.png */; };
+		3725F77A1E35F16300B9199F /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 3725F7791E35F16300B9199F /* UIView+Frame.m */; };
+		3725F7831E35FD8100B9199F /* CDAlbumGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3725F7801E35FD8100B9199F /* CDAlbumGroupViewController.m */; };
+		3725F7841E35FD8100B9199F /* CDPhotoAssetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3725F7821E35FD8100B9199F /* CDPhotoAssetViewController.m */; };
+		3725F78A1E35FDF700B9199F /* CDPhotoAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 3725F7871E35FDF600B9199F /* CDPhotoAsset.m */; };
+		3725F78B1E35FDF700B9199F /* CDPhotoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3725F7891E35FDF700B9199F /* CDPhotoManager.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		002EFD0DDCE7AFBE63404917 /* libPods-CDLibPhotos.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CDLibPhotos.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3720448D1E34B73E0025FDA2 /* CDLibPhotos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CDLibPhotos.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		372044911E34B73E0025FDA2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		372044931E34B73E0025FDA2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		372044941E34B73E0025FDA2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		3720449C1E34B73F0025FDA2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3720449F1E34B73F0025FDA2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		372044A11E34B73F0025FDA2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3725F7701E35EEFC00B9199F /* CDPhotoCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDPhotoCollectionCell.h; sourceTree = "<group>"; };
+		3725F7711E35EEFC00B9199F /* CDPhotoCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDPhotoCollectionCell.m; sourceTree = "<group>"; };
+		3725F7741E35F08700B9199F /* photo_image_selected_off_status_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo_image_selected_off_status_icon.png; sourceTree = "<group>"; };
+		3725F7751E35F08700B9199F /* photo_image_selected_on_status_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo_image_selected_on_status_icon.png; sourceTree = "<group>"; };
+		3725F7781E35F16300B9199F /* UIView+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
+		3725F7791E35F16300B9199F /* UIView+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
+		3725F77D1E35F24B00B9199F /* CDLibPhotoPrefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDLibPhotoPrefix.pch; sourceTree = "<group>"; };
+		3725F77F1E35FD8100B9199F /* CDAlbumGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDAlbumGroupViewController.h; sourceTree = "<group>"; };
+		3725F7801E35FD8100B9199F /* CDAlbumGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDAlbumGroupViewController.m; sourceTree = "<group>"; };
+		3725F7811E35FD8100B9199F /* CDPhotoAssetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDPhotoAssetViewController.h; sourceTree = "<group>"; };
+		3725F7821E35FD8100B9199F /* CDPhotoAssetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDPhotoAssetViewController.m; sourceTree = "<group>"; };
+		3725F7861E35FDF600B9199F /* CDPhotoAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDPhotoAsset.h; sourceTree = "<group>"; };
+		3725F7871E35FDF600B9199F /* CDPhotoAsset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDPhotoAsset.m; sourceTree = "<group>"; };
+		3725F7881E35FDF700B9199F /* CDPhotoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDPhotoManager.h; sourceTree = "<group>"; };
+		3725F7891E35FDF700B9199F /* CDPhotoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDPhotoManager.m; sourceTree = "<group>"; };
+		5E874B1AD3626A4B98D0A1AD /* Pods-CDLibPhotos.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CDLibPhotos.release.xcconfig"; path = "Pods/Target Support Files/Pods-CDLibPhotos/Pods-CDLibPhotos.release.xcconfig"; sourceTree = "<group>"; };
+		88FCF1362EA1EE9E8BF99BDE /* Pods-CDLibPhotos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CDLibPhotos.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CDLibPhotos/Pods-CDLibPhotos.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3720448A1E34B73E0025FDA2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2D028B56892B27129699B9CD /* libPods-CDLibPhotos.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2217E2468229ECC72BF8F7A6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				002EFD0DDCE7AFBE63404917 /* libPods-CDLibPhotos.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		372044841E34B73E0025FDA2 = {
+			isa = PBXGroup;
+			children = (
+				3720448F1E34B73E0025FDA2 /* CDLibPhotos */,
+				3720448E1E34B73E0025FDA2 /* Products */,
+				48AAE855BDD89FAE4B136409 /* Pods */,
+				2217E2468229ECC72BF8F7A6 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		3720448E1E34B73E0025FDA2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3720448D1E34B73E0025FDA2 /* CDLibPhotos.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3720448F1E34B73E0025FDA2 /* CDLibPhotos */ = {
+			isa = PBXGroup;
+			children = (
+				372044A71E34B7850025FDA2 /* Class */,
+				372044AA1E34B7850025FDA2 /* Libs */,
+				372044901E34B73E0025FDA2 /* Supporting Files */,
+			);
+			path = CDLibPhotos;
+			sourceTree = "<group>";
+		};
+		372044901E34B73E0025FDA2 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				372044931E34B73E0025FDA2 /* AppDelegate.h */,
+				372044941E34B73E0025FDA2 /* AppDelegate.m */,
+				3725F7731E35F08700B9199F /* Resource */,
+				372044A11E34B73F0025FDA2 /* Info.plist */,
+				3720449C1E34B73F0025FDA2 /* Assets.xcassets */,
+				3720449E1E34B73F0025FDA2 /* LaunchScreen.storyboard */,
+				372044911E34B73E0025FDA2 /* main.m */,
+				3725F77D1E35F24B00B9199F /* CDLibPhotoPrefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		372044A71E34B7850025FDA2 /* Class */ = {
+			isa = PBXGroup;
+			children = (
+				3725F7851E35FDF600B9199F /* Photos */,
+				3725F76E1E35EEDD00B9199F /* UILayer */,
+			);
+			path = Class;
+			sourceTree = "<group>";
+		};
+		372044AA1E34B7850025FDA2 /* Libs */ = {
+			isa = PBXGroup;
+			children = (
+				3725F7781E35F16300B9199F /* UIView+Frame.h */,
+				3725F7791E35F16300B9199F /* UIView+Frame.m */,
+			);
+			path = Libs;
+			sourceTree = "<group>";
+		};
+		3725F76E1E35EEDD00B9199F /* UILayer */ = {
+			isa = PBXGroup;
+			children = (
+				3725F77E1E35FD8100B9199F /* Controllers */,
+				3725F76F1E35EEDD00B9199F /* Cells */,
+			);
+			path = UILayer;
+			sourceTree = "<group>";
+		};
+		3725F76F1E35EEDD00B9199F /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				3725F7701E35EEFC00B9199F /* CDPhotoCollectionCell.h */,
+				3725F7711E35EEFC00B9199F /* CDPhotoCollectionCell.m */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		3725F7731E35F08700B9199F /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				3725F7741E35F08700B9199F /* photo_image_selected_off_status_icon.png */,
+				3725F7751E35F08700B9199F /* photo_image_selected_on_status_icon.png */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		3725F77E1E35FD8100B9199F /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				3725F77F1E35FD8100B9199F /* CDAlbumGroupViewController.h */,
+				3725F7801E35FD8100B9199F /* CDAlbumGroupViewController.m */,
+				3725F7811E35FD8100B9199F /* CDPhotoAssetViewController.h */,
+				3725F7821E35FD8100B9199F /* CDPhotoAssetViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		3725F7851E35FDF600B9199F /* Photos */ = {
+			isa = PBXGroup;
+			children = (
+				3725F7881E35FDF700B9199F /* CDPhotoManager.h */,
+				3725F7891E35FDF700B9199F /* CDPhotoManager.m */,
+				3725F7861E35FDF600B9199F /* CDPhotoAsset.h */,
+				3725F7871E35FDF600B9199F /* CDPhotoAsset.m */,
+			);
+			path = Photos;
+			sourceTree = "<group>";
+		};
+		48AAE855BDD89FAE4B136409 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				88FCF1362EA1EE9E8BF99BDE /* Pods-CDLibPhotos.debug.xcconfig */,
+				5E874B1AD3626A4B98D0A1AD /* Pods-CDLibPhotos.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3720448C1E34B73E0025FDA2 /* CDLibPhotos */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 372044A41E34B73F0025FDA2 /* Build configuration list for PBXNativeTarget "CDLibPhotos" */;
+			buildPhases = (
+				8099CC0E34F151C231DB3C2B /* [CP] Check Pods Manifest.lock */,
+				372044891E34B73E0025FDA2 /* Sources */,
+				3720448A1E34B73E0025FDA2 /* Frameworks */,
+				3720448B1E34B73E0025FDA2 /* Resources */,
+				8D6270F1D0F3B97849E4F8DA /* [CP] Embed Pods Frameworks */,
+				155DA4E9E25F5045283E14CA /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CDLibPhotos;
+			productName = CDLibPhotos;
+			productReference = 3720448D1E34B73E0025FDA2 /* CDLibPhotos.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		372044851E34B73E0025FDA2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = Comtop;
+				TargetAttributes = {
+					3720448C1E34B73E0025FDA2 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = Q2292425WF;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 372044881E34B73E0025FDA2 /* Build configuration list for PBXProject "CDLibPhotos" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 372044841E34B73E0025FDA2;
+			productRefGroup = 3720448E1E34B73E0025FDA2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3720448C1E34B73E0025FDA2 /* CDLibPhotos */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3720448B1E34B73E0025FDA2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				372044A01E34B73F0025FDA2 /* LaunchScreen.storyboard in Resources */,
+				3725F7771E35F08700B9199F /* photo_image_selected_on_status_icon.png in Resources */,
+				3725F7761E35F08700B9199F /* photo_image_selected_off_status_icon.png in Resources */,
+				3720449D1E34B73F0025FDA2 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		155DA4E9E25F5045283E14CA /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CDLibPhotos/Pods-CDLibPhotos-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8099CC0E34F151C231DB3C2B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		8D6270F1D0F3B97849E4F8DA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CDLibPhotos/Pods-CDLibPhotos-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		372044891E34B73E0025FDA2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3725F77A1E35F16300B9199F /* UIView+Frame.m in Sources */,
+				372044951E34B73E0025FDA2 /* AppDelegate.m in Sources */,
+				372044921E34B73E0025FDA2 /* main.m in Sources */,
+				3725F7831E35FD8100B9199F /* CDAlbumGroupViewController.m in Sources */,
+				3725F78A1E35FDF700B9199F /* CDPhotoAsset.m in Sources */,
+				3725F7721E35EEFC00B9199F /* CDPhotoCollectionCell.m in Sources */,
+				3725F7841E35FD8100B9199F /* CDPhotoAssetViewController.m in Sources */,
+				3725F78B1E35FDF700B9199F /* CDPhotoManager.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		3720449E1E34B73F0025FDA2 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3720449F1E34B73F0025FDA2 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		372044A21E34B73F0025FDA2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		372044A31E34B73F0025FDA2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		372044A51E34B73F0025FDA2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 88FCF1362EA1EE9E8BF99BDE /* Pods-CDLibPhotos.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = Q2292425WF;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/CDLibPhotos/CDLibPhotoPrefix.pch";
+				INFOPLIST_FILE = CDLibPhotos/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = shenzhen.comtop.com.CDLibPhotos;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		372044A61E34B73F0025FDA2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5E874B1AD3626A4B98D0A1AD /* Pods-CDLibPhotos.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = Q2292425WF;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/CDLibPhotos/CDLibPhotoPrefix.pch";
+				INFOPLIST_FILE = CDLibPhotos/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = shenzhen.comtop.com.CDLibPhotos;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		372044881E34B73E0025FDA2 /* Build configuration list for PBXProject "CDLibPhotos" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				372044A21E34B73F0025FDA2 /* Debug */,
+				372044A31E34B73F0025FDA2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		372044A41E34B73F0025FDA2 /* Build configuration list for PBXNativeTarget "CDLibPhotos" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				372044A51E34B73F0025FDA2 /* Debug */,
+				372044A61E34B73F0025FDA2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 372044851E34B73E0025FDA2 /* Project object */;
+}
