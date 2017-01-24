@@ -17,8 +17,38 @@
 
 
 
+
+
+
+
+
+
 #define SCREEN_WIDTH   [UIScreen mainScreen].bounds.size.width
 #define SCREEN_HEIGHT  [UIScreen mainScreen].bounds.size.height
+
+
+/**
+ *  获得指定颜色值的实例
+ *  @param r R值
+ *  @param g G值
+ *  @param b B值
+ *  @param a 透明度
+ *  @return UIColor的一个实例
+ */
+#define DefineColorRGB(r, g, b, a)  [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)]
+/**
+ *  获得指定颜色值的实例
+ *  @param hexValue 十六进制颜色值
+ *  @return UIColor的一个实例
+ */
+#define DefineColorHEX(hexValue) [UIColor colorWithRed:((float)((hexValue & 0xFF0000) >> 16))/255.0 green:((float)((hexValue & 0xFF00) >> 8))/255.0 blue:((float)(hexValue & 0xFF))/255.0 alpha:1.0]  // rgb颜色转换（16进制->10进制）
+
+
+
+
+
+
+
 
 
 

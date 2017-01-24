@@ -11,7 +11,7 @@
 #import "CDPhotoAsset.h"
 #import "CDBrowsePhotoViewController.h"
 
-@interface CDPhotoAssetViewController()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,CDPhotoCollectionCellDelegate>
+@interface CDPhotoAssetViewController()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,CDPhotoCollectionCellDelegate,CDBrowsePhotoViewControllerDelegate>
 {
     NSMutableArray <NSString *> *_selectedPhotoLocalIdentifierList;
 }
@@ -46,6 +46,12 @@
     [self.collectionViewPhotos reloadData];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.collectionViewPhotos reloadData];
+}
+
 
 #pragma mark -  Collection View Delegate
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -53,7 +59,7 @@
     
     [self.collectionViewPhotos registerClass:[CDPhotoCollectionCell class] forCellWithReuseIdentifier:@"CDPhotoCollectionCell"];
     __block CDPhotoCollectionCell * cell = (CDPhotoCollectionCell *)[self.collectionViewPhotos dequeueReusableCellWithReuseIdentifier:@"CDPhotoCollectionCell" forIndexPath:indexPath];
-    
+    [cell setShowModel:1];
     CDPhotoAsset *photo = [_photoList objectAtIndex:indexPath.row];
     [photo getImageType:ThumbnailImageType Complete:^(CretaeImageType type, UIImage *image) {
         [cell setCellPictureImage:image];
@@ -76,9 +82,10 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
-//    CDPhotoAsset *photo = [_photoList objectAtIndex:indexPath.row];
+    CDPhotoAsset *photo = [_photoList objectAtIndex:indexPath.row];
 
-    CDBrowsePhotoViewController *browseController = [[CDBrowsePhotoViewController alloc] initWithPhotoList:self.photoList];
+    CDBrowsePhotoViewController *browseController = [[CDBrowsePhotoViewController alloc] initWithPhotoList:self.photoList andDefaultStartPhoto:photo];
+    browseController.delegate = self;
     [self.navigationController pushViewController:browseController animated:YES];
     
 }
@@ -133,6 +140,25 @@
     } else {
         [_selectedPhotoLocalIdentifierList addObject:photo.localIdentifier];
         [cell setButtonImage:[UIImage imageNamed:@"photo_image_selected_on_status_icon"]];
+    }
+}
+
+#pragma mark - CDBrowsePhotoViewControllerDelegate 
+- (BOOL)browseController:(CDBrowsePhotoViewController *)browseController shouldSelectedPhoto:(CDPhotoAsset *)photo
+{
+    return [_selectedPhotoLocalIdentifierList containsObject:photo.localIdentifier];
+}
+
+- (BOOL)browseController:(CDBrowsePhotoViewController *)browseController buttonSelectedClickedOnItemPhoto:(CDPhotoAsset *)photo
+{
+    if ([_selectedPhotoLocalIdentifierList containsObject:photo.localIdentifier]) {
+        [_selectedPhotoLocalIdentifierList removeObject:photo.localIdentifier];
+        return NO;
+//        [button setImage:[UIImage imageNamed:@"photo_image_selected_off_status_icon"] forState:UIControlStateNormal];
+    } else {
+        [_selectedPhotoLocalIdentifierList addObject:photo.localIdentifier];
+        return YES;
+//        [button setImage:[UIImage imageNamed:@"photo_image_selected_on_status_icon"] forState:UIControlStateNormal];
     }
 }
 

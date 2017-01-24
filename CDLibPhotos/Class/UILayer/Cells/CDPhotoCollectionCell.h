@@ -26,4 +26,6 @@ UIKIT_EXTERN CGFloat const MarginValue;
 - (void)setCellPictureImage:(UIImage *)image;
 - (void)setButtonImage:(UIImage *)image;
 
+- (void)setShowModel:(NSInteger)model;
+
 @end

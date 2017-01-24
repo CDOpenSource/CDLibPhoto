@@ -19,6 +19,7 @@ CGFloat const MarginValue = 2.0;
 
 @implementation CDPhotoCollectionCell
 
+#pragma mark - Public Method
 - (void)setCellPictureImage:(UIImage *)image
 {
     self.imageViewPicture.image = image;
@@ -29,6 +30,31 @@ CGFloat const MarginValue = 2.0;
 {
     UIImageView *imageview = [self.buttonSelected viewWithTag:1];
     imageview.image = image;
+}
+
+- (void)setShowModel:(NSInteger)model
+{
+    if (model == 0) {
+        // 默认是缩略图小图展示选择模式
+        self.buttonSelected.hidden = NO;
+        self.imageViewPicture.contentMode = UIViewContentModeScaleAspectFill;
+        [self.imageViewPicture mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.imageViewPicture.superview).offset(MarginValue);
+            make.right.equalTo(self.imageViewPicture.superview).offset(-MarginValue);
+            make.top.equalTo(self.imageViewPicture.superview).offset(MarginValue);
+            make.bottom.equalTo(self.imageViewPicture.superview);
+        }];
+    } else {
+        // 整图预览展示选择模式
+        self.buttonSelected.hidden = YES;
+        self.imageViewPicture.contentMode = UIViewContentModeScaleAspectFit;
+        [self.imageViewPicture mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.imageViewPicture.superview);
+            make.right.equalTo(self.imageViewPicture.superview);
+            make.top.equalTo(self.imageViewPicture.superview);
+            make.bottom.equalTo(self.imageViewPicture.superview);
+        }];
+    }
 }
 
 
@@ -81,7 +107,7 @@ CGFloat const MarginValue = 2.0;
         [imageView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(_buttonSelected.mas_centerX).offset(6.0);
             make.centerY.equalTo(_buttonSelected.mas_centerY).offset(-6.0);
-            make.height.equalTo(@(SCREEN_WIDTH/3.0/3.0/3.0*1.6));
+            make.height.equalTo(@(SCREEN_WIDTH/3.0/3.0/3.0*2.0));
             make.width.equalTo(imageView.mas_height);
         }];
         
