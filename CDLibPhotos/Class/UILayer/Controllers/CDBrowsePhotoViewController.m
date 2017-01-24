@@ -15,8 +15,13 @@
 @interface CDBrowsePhotoViewController () <UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 {
     NSInteger _startIndex;
+    
     UIView *_viewNavigation;
     UIButton *_buttonSelected;
+    
+    UIView *_viewBottom;
+    UILabel *_labelTotalCount;
+    
     NSInteger _currentIndex;
 }
 @property (nonatomic,strong) NSArray <CDPhotoAsset *> *photoList;
@@ -59,6 +64,7 @@
     
     // 初始化导航栏
     [self initTopNavigationView];
+    [self initBottomView];
     
     // 初始化滚动到指定的位置
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -82,7 +88,7 @@
 - (void)initTopNavigationView
 {
     _viewNavigation = [[UIView alloc] init];
-    _viewNavigation.backgroundColor = DefineColorRGB(0, 0, 0, 0.5);
+    _viewNavigation.backgroundColor = DefineColorRGB(0, 0, 0, 0.6);
     [self.view addSubview:_viewNavigation];
     [_viewNavigation mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view);
@@ -128,7 +134,46 @@
         make.height.equalTo(@30);
         make.width.equalTo(_buttonSelected.imageView.mas_height);
     }];
+}
+
+- (void)initBottomView
+{
+    _viewBottom = [[UIView alloc] init];
+    _viewBottom.backgroundColor = DefineColorRGB(0, 0, 0, 0.6);
+    [self.view addSubview:_viewBottom];
+    [_viewBottom mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_viewBottom.superview);
+        make.right.equalTo(_viewBottom.superview);
+        make.bottom.equalTo(_viewBottom.superview);
+        make.height.equalTo(@50.0);
+    }];
     
+    _labelTotalCount = [[UILabel alloc] init];
+    _labelTotalCount.textColor = [UIColor whiteColor];
+    _labelTotalCount.font = [UIFont boldSystemFontOfSize:13.0];
+    NSInteger count = [_delegate respondsToSelector:@selector(numberOfSelectedPhotosOnBrowseController:)] ? [_delegate numberOfSelectedPhotosOnBrowseController:self] : 0;
+    _labelTotalCount.text = [NSString stringWithFormat:@"已选中 %zi 张",count];
+    [_viewBottom addSubview:_labelTotalCount];
+    [_labelTotalCount mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_labelTotalCount.superview).offset(10.0);
+        make.top.equalTo(_labelTotalCount.superview);
+        make.bottom.equalTo(_labelTotalCount.superview);
+//        make.width.equalTo()
+    }];
+    
+    // 选中按钮
+    UIButton *buttonDone = [[UIButton alloc] init];
+    buttonDone.titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
+    [buttonDone setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
+    [buttonDone addTarget:self action:@selector(buttonDoneClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [buttonDone setTitle:@"完成" forState:UIControlStateNormal];
+    [_viewBottom addSubview:buttonDone];
+    [buttonDone mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(buttonDone.superview);
+        make.top.equalTo(buttonDone.superview);
+        make.bottom.equalTo(buttonDone.superview);
+        make.width.equalTo(@70);
+    }];
 }
 
 #pragma mark - IBAction
@@ -149,7 +194,15 @@
     } else {
         NSLog(@"browseController:buttonSelectedClickedOnItemPhoto:代理方法未实现！！！");
     }
-    
+    NSInteger count = [_delegate respondsToSelector:@selector(numberOfSelectedPhotosOnBrowseController:)] ? [_delegate numberOfSelectedPhotosOnBrowseController:self] : 0;
+    _labelTotalCount.text = [NSString stringWithFormat:@"已选中 %zi 张",count];
+}
+
+- (void)buttonDoneClicked:(UIButton *)button
+{
+    if ([_delegate respondsToSelector:@selector(buttonDoneClickedOnBrowseController:)]) {
+        [_delegate buttonDoneClickedOnBrowseController:self];
+    }
 }
 
 
@@ -178,7 +231,32 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (_viewNavigation.tag == 0) {
+        _viewNavigation.tag = 1;
+        // 顶部视图
+        [_viewNavigation mas_updateConstraints:^(MASConstraintMaker *make) {
+           make.top.equalTo(self.view).offset(-_viewNavigation.cd_height);
+        }];
+        // 底部视图
+        [_viewBottom mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.view).offset(_viewBottom.cd_height);
+        }];
+    } else {
+        _viewNavigation.tag = 0;
+        // 顶部视图
+        [_viewNavigation mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.view).offset(0);
+        }];
+        // 底部视图
+        [_viewBottom mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.view).offset(0);
+        }];
+    }
     
+    // 动画执行
+    [UIView animateWithDuration:0.2 animations:^{
+        [self.view layoutIfNeeded];
+    }];
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath

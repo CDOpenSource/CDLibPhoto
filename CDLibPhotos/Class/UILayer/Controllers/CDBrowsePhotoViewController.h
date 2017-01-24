@@ -14,9 +14,11 @@
 
 @required
 - (BOOL)browseController:(CDBrowsePhotoViewController *)browseController buttonSelectedClickedOnItemPhoto:(CDPhotoAsset *)photo;
+- (void)buttonDoneClickedOnBrowseController:(CDBrowsePhotoViewController *)browseController;
 
 @optional
 - (BOOL)browseController:(CDBrowsePhotoViewController *)browseController shouldSelectedPhoto:(CDPhotoAsset *)photo;
+- (NSInteger)numberOfSelectedPhotosOnBrowseController:(CDBrowsePhotoViewController *)browseController;
 
 @end
 

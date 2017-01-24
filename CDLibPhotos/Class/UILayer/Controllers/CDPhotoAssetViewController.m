@@ -143,12 +143,7 @@
     }
 }
 
-#pragma mark - CDBrowsePhotoViewControllerDelegate 
-- (BOOL)browseController:(CDBrowsePhotoViewController *)browseController shouldSelectedPhoto:(CDPhotoAsset *)photo
-{
-    return [_selectedPhotoLocalIdentifierList containsObject:photo.localIdentifier];
-}
-
+#pragma mark - CDBrowsePhotoViewControllerDelegate
 - (BOOL)browseController:(CDBrowsePhotoViewController *)browseController buttonSelectedClickedOnItemPhoto:(CDPhotoAsset *)photo
 {
     if ([_selectedPhotoLocalIdentifierList containsObject:photo.localIdentifier]) {
@@ -160,6 +155,21 @@
         return YES;
 //        [button setImage:[UIImage imageNamed:@"photo_image_selected_on_status_icon"] forState:UIControlStateNormal];
     }
+}
+
+- (void)buttonDoneClickedOnBrowseController:(CDBrowsePhotoViewController *)browseController
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (BOOL)browseController:(CDBrowsePhotoViewController *)browseController shouldSelectedPhoto:(CDPhotoAsset *)photo
+{
+    return [_selectedPhotoLocalIdentifierList containsObject:photo.localIdentifier];
+}
+
+- (NSInteger)numberOfSelectedPhotosOnBrowseController:(CDBrowsePhotoViewController *)browseController
+{
+    return _selectedPhotoLocalIdentifierList.count;
 }
 
 #pragma mark - Getetr Method
