@@ -59,7 +59,7 @@
     
     [self.collectionViewPhotos registerClass:[CDPhotoCollectionCell class] forCellWithReuseIdentifier:@"CDPhotoCollectionCell"];
     __block CDPhotoCollectionCell * cell = (CDPhotoCollectionCell *)[self.collectionViewPhotos dequeueReusableCellWithReuseIdentifier:@"CDPhotoCollectionCell" forIndexPath:indexPath];
-    [cell setShowModel:1];
+    [cell setShowModel:0];
     CDPhotoAsset *photo = [_photoList objectAtIndex:indexPath.row];
     [photo getImageType:ThumbnailImageType Complete:^(CretaeImageType type, UIImage *image) {
         [cell setCellPictureImage:image];
