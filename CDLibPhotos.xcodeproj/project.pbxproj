@@ -22,6 +22,8 @@
 		37A397F11E37344D0050A82A /* CDAlbumGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A397EA1E37344D0050A82A /* CDAlbumGroupViewController.m */; };
 		37A397F21E37344D0050A82A /* CDBrowsePhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A397EC1E37344D0050A82A /* CDBrowsePhotoViewController.m */; };
 		37A397F31E37344D0050A82A /* CDPhotoAssetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A397EE1E37344D0050A82A /* CDPhotoAssetViewController.m */; };
+		37A397FA1E3735850050A82A /* CDMainTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A397F91E3735850050A82A /* CDMainTestViewController.m */; };
+		37A397FD1E3736D40050A82A /* CDTestCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A397FC1E3736D40050A82A /* CDTestCollectionCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +53,10 @@
 		37A397EC1E37344D0050A82A /* CDBrowsePhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDBrowsePhotoViewController.m; sourceTree = "<group>"; };
 		37A397ED1E37344D0050A82A /* CDPhotoAssetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDPhotoAssetViewController.h; sourceTree = "<group>"; };
 		37A397EE1E37344D0050A82A /* CDPhotoAssetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDPhotoAssetViewController.m; sourceTree = "<group>"; };
+		37A397F81E3735850050A82A /* CDMainTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDMainTestViewController.h; sourceTree = "<group>"; };
+		37A397F91E3735850050A82A /* CDMainTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDMainTestViewController.m; sourceTree = "<group>"; };
+		37A397FB1E3736D40050A82A /* CDTestCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDTestCollectionCell.h; sourceTree = "<group>"; };
+		37A397FC1E3736D40050A82A /* CDTestCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDTestCollectionCell.m; sourceTree = "<group>"; };
 		5E874B1AD3626A4B98D0A1AD /* Pods-CDLibPhotos.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CDLibPhotos.release.xcconfig"; path = "Pods/Target Support Files/Pods-CDLibPhotos/Pods-CDLibPhotos.release.xcconfig"; sourceTree = "<group>"; };
 		88FCF1362EA1EE9E8BF99BDE /* Pods-CDLibPhotos.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CDLibPhotos.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CDLibPhotos/Pods-CDLibPhotos.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -122,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				3725F7851E35FDF600B9199F /* Photos */,
+				37A397F41E3735590050A82A /* TestExample */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -188,12 +195,23 @@
 			children = (
 				37A397E91E37344D0050A82A /* CDAlbumGroupViewController.h */,
 				37A397EA1E37344D0050A82A /* CDAlbumGroupViewController.m */,
-				37A397EB1E37344D0050A82A /* CDBrowsePhotoViewController.h */,
-				37A397EC1E37344D0050A82A /* CDBrowsePhotoViewController.m */,
 				37A397ED1E37344D0050A82A /* CDPhotoAssetViewController.h */,
 				37A397EE1E37344D0050A82A /* CDPhotoAssetViewController.m */,
+				37A397EB1E37344D0050A82A /* CDBrowsePhotoViewController.h */,
+				37A397EC1E37344D0050A82A /* CDBrowsePhotoViewController.m */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		37A397F41E3735590050A82A /* TestExample */ = {
+			isa = PBXGroup;
+			children = (
+				37A397F81E3735850050A82A /* CDMainTestViewController.h */,
+				37A397F91E3735850050A82A /* CDMainTestViewController.m */,
+				37A397FB1E3736D40050A82A /* CDTestCollectionCell.h */,
+				37A397FC1E3736D40050A82A /* CDTestCollectionCell.m */,
+			);
+			path = TestExample;
 			sourceTree = "<group>";
 		};
 		48AAE855BDD89FAE4B136409 /* Pods */ = {
@@ -332,6 +350,7 @@
 			files = (
 				3725F77A1E35F16300B9199F /* UIView+Frame.m in Sources */,
 				372044951E34B73E0025FDA2 /* AppDelegate.m in Sources */,
+				37A397FA1E3735850050A82A /* CDMainTestViewController.m in Sources */,
 				372044921E34B73E0025FDA2 /* main.m in Sources */,
 				37A397F21E37344D0050A82A /* CDBrowsePhotoViewController.m in Sources */,
 				37A397F01E37344D0050A82A /* CDPhotoCollectionCell.m in Sources */,
@@ -339,6 +358,7 @@
 				37A397F31E37344D0050A82A /* CDPhotoAssetViewController.m in Sources */,
 				37A397EF1E37344D0050A82A /* CDPhotoAsset.m in Sources */,
 				3725F78B1E35FDF700B9199F /* CDPhotoManager.m in Sources */,
+				37A397FD1E3736D40050A82A /* CDTestCollectionCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

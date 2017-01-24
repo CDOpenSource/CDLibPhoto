@@ -10,6 +10,7 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <Photos/Photos.h>
 #import "CDPhotoAsset.h"
+#import "CDAlbumGroupViewController.h"
 @class CDPhotoManager;
 
 @protocol CDPhotoManagerLoadingAseetDelegate <NSObject>
@@ -24,7 +25,7 @@
 @property (nonatomic, strong ,readonly) NSMutableDictionary <NSString *,NSArray <CDPhotoAsset *>*> *assets;
 @property (nonatomic, strong ,readonly) NSMutableArray <CDGroupAsset *> *groupAssets;
 
-
+@property (nonatomic, strong) NSMutableArray <CDGroupAsset *> *selectedAssetList;
 
 /**
  请求访问相册的权限
@@ -55,9 +56,12 @@
 + (NSString *)date:(NSDate *)date toStringByFormat:(NSString *)format;
 
 
+#pragma mark - UI Dispaly
++ (void)showSystemPhotoAlbumListByController:(UIViewController *)controller;
 
 
 
+#pragma mark
 /**
  加载（或重新加载）一次系统相册中的所有资源
  @param delegate 加载过程中的事件回调代理对象

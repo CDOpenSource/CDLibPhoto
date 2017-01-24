@@ -145,7 +145,7 @@
         make.left.equalTo(_viewBottom.superview);
         make.right.equalTo(_viewBottom.superview);
         make.bottom.equalTo(_viewBottom.superview);
-        make.height.equalTo(@50.0);
+        make.height.equalTo(@40.0);
     }];
     
     _labelTotalCount = [[UILabel alloc] init];
@@ -209,7 +209,7 @@
 #pragma mark - collection view delegate
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString * CellIdentifier = @"CDPageCollectionCell";
+    static NSString * CellIdentifier = @"CDPhotoCollectionCell";
     [self.collectionViewBrowse registerClass:[CDPhotoCollectionCell class] forCellWithReuseIdentifier:CellIdentifier];
     CDPhotoCollectionCell * cell = (CDPhotoCollectionCell *)[self.collectionViewBrowse dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     [cell setShowModel:1];

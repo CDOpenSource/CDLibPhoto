@@ -8,12 +8,15 @@
 
 #import "CDPhotoAssetViewController.h"
 #import "CDPhotoCollectionCell.h"
-#import "CDPhotoAsset.h"
+#import "CDPhotoManager.h"
 #import "CDBrowsePhotoViewController.h"
 
 @interface CDPhotoAssetViewController()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,CDPhotoCollectionCellDelegate,CDBrowsePhotoViewControllerDelegate>
 {
     NSMutableArray <NSString *> *_selectedPhotoLocalIdentifierList;
+    
+    UIView *_viewBottom;
+    UILabel *_labelTotalCount;
 }
 @property (nonatomic,strong) NSArray <CDPhotoAsset *> *photoList;
 @property (nonatomic,strong) UICollectionView *collectionViewPhotos;
@@ -28,6 +31,9 @@
     self = [super init];
     if (self) {
         _selectedPhotoLocalIdentifierList = [[NSMutableArray alloc] init];
+        for (CDPhotoAsset *photo in [[CDPhotoManager sharePhotos] selectedAssetList]) {
+            [_selectedPhotoLocalIdentifierList addObject:photo.localIdentifier];
+        }
         _photoList = photoList;
     }
     return self;
@@ -40,6 +46,8 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
     
+    [self initBottomView];
+    
     self.collectionViewPhotos.dataSource =self;
     self.collectionViewPhotos.delegate = self;
     
@@ -49,9 +57,63 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    _labelTotalCount.text = [NSString stringWithFormat:@"已选中 %zi 张",_selectedPhotoLocalIdentifierList.count];
     [self.collectionViewPhotos reloadData];
 }
 
+#pragma mark 
+- (void)initBottomView
+{
+    _viewBottom = [[UIView alloc] init];
+    _viewBottom.backgroundColor = DefineColorRGB(0, 0, 0, 0.6);
+    [self.view addSubview:_viewBottom];
+    [_viewBottom mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_viewBottom.superview);
+        make.right.equalTo(_viewBottom.superview);
+        make.bottom.equalTo(_viewBottom.superview);
+        make.height.equalTo(@40.0);
+    }];
+    
+    _labelTotalCount = [[UILabel alloc] init];
+    _labelTotalCount.textColor = [UIColor whiteColor];
+    _labelTotalCount.font = [UIFont boldSystemFontOfSize:13.0];
+    _labelTotalCount.text = [NSString stringWithFormat:@"已选中 %zi 张",_selectedPhotoLocalIdentifierList.count];
+    [_viewBottom addSubview:_labelTotalCount];
+    [_labelTotalCount mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_labelTotalCount.superview).offset(10.0);
+        make.top.equalTo(_labelTotalCount.superview);
+        make.bottom.equalTo(_labelTotalCount.superview);
+        //        make.width.equalTo()
+    }];
+    
+    // 选中按钮
+    UIButton *buttonDone = [[UIButton alloc] init];
+    buttonDone.titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
+    [buttonDone setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
+    [buttonDone addTarget:self action:@selector(buttonDoneClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [buttonDone setTitle:@"完成" forState:UIControlStateNormal];
+    [_viewBottom addSubview:buttonDone];
+    [buttonDone mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(buttonDone.superview);
+        make.top.equalTo(buttonDone.superview);
+        make.bottom.equalTo(buttonDone.superview);
+        make.width.equalTo(@70);
+    }];
+}
+
+- (void)buttonDoneClicked:(UIButton *)button
+{
+    NSMutableArray *tempSelected = [[NSMutableArray alloc] init];
+    CDGroupAsset *group = [[[CDPhotoManager sharePhotos] groupAssets] firstObject];
+    NSArray *allAsset = [[[CDPhotoManager sharePhotos] assets] objectForKey:group.localIdentifier];
+    for (CDPhotoAsset *photo in allAsset) {
+        if ([_selectedPhotoLocalIdentifierList containsObject:photo.localIdentifier]) {
+            [tempSelected addObject:photo];
+        }
+    }
+    [[CDPhotoManager sharePhotos] setSelectedAssetList:tempSelected];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 #pragma mark -  Collection View Delegate
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -141,6 +203,7 @@
         [_selectedPhotoLocalIdentifierList addObject:photo.localIdentifier];
         [cell setButtonImage:[UIImage imageNamed:@"photo_image_selected_on_status_icon"]];
     }
+    _labelTotalCount.text = [NSString stringWithFormat:@"已选中 %zi 张",_selectedPhotoLocalIdentifierList.count];
 }
 
 #pragma mark - CDBrowsePhotoViewControllerDelegate
@@ -159,7 +222,7 @@
 
 - (void)buttonDoneClickedOnBrowseController:(CDBrowsePhotoViewController *)browseController
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self buttonDoneClicked:nil];
 }
 
 - (BOOL)browseController:(CDBrowsePhotoViewController *)browseController shouldSelectedPhoto:(CDPhotoAsset *)photo
@@ -189,7 +252,7 @@
             make.top.equalTo(self.view);
             make.left.equalTo(self.view).offset(MarginValue);
             make.right.equalTo(self.view).offset(-MarginValue);
-            make.bottom.equalTo(self.view);
+            make.bottom.equalTo(self.view).offset(-40);
         }];
         
     }

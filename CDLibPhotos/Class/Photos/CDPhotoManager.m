@@ -83,6 +83,13 @@
     return [dateFormatter stringFromDate:date];
 }
 
+#pragma mark - UI Dispaly
++ (void)showSystemPhotoAlbumListByController:(UIViewController *)controller
+{
+    CDAlbumGroupViewController *albumController = [[CDAlbumGroupViewController alloc] init];
+    UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:albumController];
+    [controller presentViewController:navi animated:YES completion:nil];
+}
 
 #pragma mark
 + (void)requestAuthorizationOnComplete:(void(^)(PHAuthorizationStatus status))completeHandler
@@ -125,7 +132,7 @@
 {
     // Initialise
     _assets = [[NSMutableDictionary alloc] init];
-    _groupAssets = [[NSMutableArray alloc] init];
+//    _groupAssets = [[NSMutableArray alloc] init];
     // Load
     if (NSClassFromString(@"PHAsset")) {
         // Photos library iOS >= 8
@@ -142,7 +149,7 @@
     options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:NO]];
 
     
-    
+    NSMutableArray *groupAssets = [[NSMutableArray alloc] init];
     NSArray *allAlbum = @[@(PHAssetCollectionTypeSmartAlbum),@(PHAssetCollectionTypeAlbum)];
     for (NSInteger j = 0; j < [allAlbum count]; j++) {
         PHFetchResult *result = [PHAssetCollection fetchAssetCollectionsWithType:[allAlbum[j] integerValue] subtype:PHAssetCollectionSubtypeAny options:options];
@@ -162,7 +169,7 @@
             group.photoCounts = count;
             group.collectionName = collection.localizedTitle;
             group.localIdentifier = collection.localIdentifier;
-            [_groupAssets addObject:group];
+            [groupAssets addObject:group];
             NSLog(@"collection.localizedLocationNames = %@",collection.localizedLocationNames);
             if ([_loadingDelegate respondsToSelector:@selector(didAddedGroup:fromPhotoManager:)]) {
                 [_loadingDelegate didAddedGroup:group fromPhotoManager:self];
@@ -171,6 +178,8 @@
             
         }
     }
+    _groupAssets = [NSMutableArray arrayWithArray:groupAssets];
+//    [[CDPhotoManager sharePhotos] groupAssets]
     
 }
 

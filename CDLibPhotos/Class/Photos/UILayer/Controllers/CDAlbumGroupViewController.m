@@ -24,12 +24,37 @@
     self.title = @"我的相册";
     self.view.backgroundColor = [UIColor whiteColor];
     
-    [CDPhotoManager requestAuthorizationOnComplete:^(PHAuthorizationStatus status) {
-        [[CDPhotoManager sharePhotos] loadedAssetsCallbackDelegate:self];
-    }];
+    // 请求系统相册
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        [CDPhotoManager requestAuthorizationOnComplete:^(PHAuthorizationStatus status) {
+            [[CDPhotoManager sharePhotos] loadedAssetsCallbackDelegate:self];
+        }];
+    });
+    
     
     self.tableViewShow.delegate = self;
     self.tableViewShow.dataSource = self;
+
+    
+    UIButton *leftButton = [[UIButton alloc] init];
+    leftButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [leftButton setTitle:@"取消" forState:UIControlStateNormal];
+    [leftButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
+    leftButton.cd_size = CGSizeMake(50, 50.0);
+//    leftButton.tag = 3;
+    // 监听按钮点击
+    [leftButton addTarget:self action:@selector(navigationButtonPressEvent:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
+}
+
+#pragma mark - IBAction Method
+- (void)navigationButtonPressEvent:(UIButton *)button
+{
+    [self dismissViewControllerAnimated:YES completion:^{
+        _tableViewShow.delegate = nil;
+        _tableViewShow.dataSource = nil;
+        _tableViewShow = nil;
+    }];
 }
 
 #pragma mark - TableView Delegate Method
@@ -120,7 +145,7 @@
 #pragma mark - CDPhotoManager Delegate Method
 - (void)didAddedGroup:(CDGroupAsset *)group fromPhotoManager:(CDPhotoManager *)manager
 {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.tableViewShow reloadData];
     });
 }
@@ -149,6 +174,14 @@
         }];
     }
     return _tableViewShow;
+}
+
+
+- (void)dealloc
+{
+    _tableViewShow.delegate = nil;
+    _tableViewShow.dataSource = nil;
+    _tableViewShow = nil;
 }
 
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "CDAlbumGroupViewController.h"
+#import "CDMainTestViewController.h"
 
 @interface AppDelegate ()
 
@@ -23,8 +23,8 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    CDAlbumGroupViewController *albumController = [[CDAlbumGroupViewController alloc] init];
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:albumController];
+    CDMainTestViewController *testController = [[CDMainTestViewController alloc] init];
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:testController];
     
     [self.window makeKeyAndVisible];
     
