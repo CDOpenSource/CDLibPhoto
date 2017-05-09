@@ -155,11 +155,13 @@
 #pragma mark  Item Size
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    UICollectionViewFlowLayout *flow = (UICollectionViewFlowLayout *)collectionViewLayout;
+    
     CGFloat width;
     if (collectionView.cd_width > 320) {
-        width = collectionView.cd_width/4.0- 0.5;
+        width = (collectionView.cd_width - flow.sectionInset.left - flow.sectionInset.right - MarginValue*3.0)/4.0 - 0.0;
     } else {
-        width = collectionView.cd_width/3.0- 0.5;
+        width = (collectionView.cd_width - flow.sectionInset.left - flow.sectionInset.right - MarginValue*2.0)/3.0 - 0.0;
     }
     CGSize size = CGSizeMake(width, width);
     
@@ -169,12 +171,12 @@
 #pragma mark  Item  Spacing
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
-    return MarginValue;
+    return MarginValue+1.0;
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 0;
+    return MarginValue;
 }
 
 
@@ -242,7 +244,7 @@
         UICollectionViewFlowLayout *flowLayout= [[UICollectionViewFlowLayout alloc]init];
         //        flowLayout.isSuspend = YES;
         flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
-        flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
+        flowLayout.sectionInset = UIEdgeInsetsMake(0, MarginValue, 0, MarginValue);
         _collectionViewPhotos.collectionViewLayout = flowLayout;
         _collectionViewPhotos = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:flowLayout];
         _collectionViewPhotos.backgroundColor = [UIColor whiteColor];
@@ -250,8 +252,8 @@
         [self.view addSubview:_collectionViewPhotos];
         [_collectionViewPhotos mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.view);
-            make.left.equalTo(self.view).offset(MarginValue);
-            make.right.equalTo(self.view).offset(-MarginValue);
+            make.left.equalTo(self.view).offset(0);
+            make.right.equalTo(self.view).offset(0);
             make.bottom.equalTo(self.view).offset(-40);
         }];
         

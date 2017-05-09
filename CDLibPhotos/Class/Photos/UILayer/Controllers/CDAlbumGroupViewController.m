@@ -27,7 +27,11 @@
     // 请求系统相册
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         [CDPhotoManager requestAuthorizationOnComplete:^(PHAuthorizationStatus status) {
-            [[CDPhotoManager sharePhotos] loadedAssetsCallbackDelegate:self];
+            if (PHAuthorizationStatusAuthorized == status) {
+                [[CDPhotoManager sharePhotos] loadedAssetsCallbackDelegate:self];
+            } else {
+                NSLog(@"授权状态错误！");
+            }
         }];
     });
     
@@ -89,7 +93,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60.0;
+    return 62.0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -112,6 +116,8 @@
         imageView.contentMode = UIViewContentModeScaleAspectFit;
         imageView.clipsToBounds = YES;
         imageView.layer.cornerRadius = 2.0f;
+        imageView.layer.borderWidth = 0.4;
+        imageView.layer.borderColor = DefineColorHEX(0xdddddd).CGColor;
         [cell.contentView addSubview:imageView];
         [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(imageView.superview).offset(10.0);
@@ -145,9 +151,17 @@
 #pragma mark - CDPhotoManager Delegate Method
 - (void)didAddedGroup:(CDGroupAsset *)group fromPhotoManager:(CDPhotoManager *)manager
 {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.tableViewShow reloadData];
-    });
+    static NSDate *lastDate;
+    if ([lastDate isKindOfClass:[NSDate class]] && ([lastDate timeIntervalSinceNow] < 1.0)) {
+        return;
+    }
+    
+    [self.tableViewShow reloadData];
+}
+
+- (void)photoManagerDidRefreshedAlbumAssets
+{
+    [self.tableViewShow reloadData];
 }
 
 

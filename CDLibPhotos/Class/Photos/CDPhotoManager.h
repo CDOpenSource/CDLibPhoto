@@ -17,6 +17,8 @@
 @optional
 - (void)didAddedGroup:(CDGroupAsset *)group fromPhotoManager:(CDPhotoManager *)manager;
 - (void)didAddedAsset:(CDPhotoAsset *)asset onGroup:(CDGroupAsset *)group fromPhotoManager:(CDPhotoManager *)manager;
+
+- (void)photoManagerDidRefreshedAlbumAssets;
 @end
 
 
@@ -25,7 +27,7 @@
 @property (nonatomic, strong ,readonly) NSMutableDictionary <NSString *,NSArray <CDPhotoAsset *>*> *assets;
 @property (nonatomic, strong ,readonly) NSMutableArray <CDGroupAsset *> *groupAssets;
 
-@property (nonatomic, strong) NSMutableArray <CDGroupAsset *> *selectedAssetList;
+@property (nonatomic, strong) NSMutableArray <CDPhotoAsset *> *selectedAssetList;
 
 /**
  请求访问相册的权限

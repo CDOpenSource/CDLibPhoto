@@ -16,6 +16,9 @@
 
 @end
 
+/*** 缓存区 ***/
+static NSMutableDictionary <NSString *,NSArray <CDPhotoAsset *>*> *assetsDictionary;
+static NSMutableArray <CDGroupAsset *> *groupAssetsList;
 
 @implementation CDPhotoManager
 
@@ -131,7 +134,7 @@
 - (void)performLoadAssetResource
 {
     // Initialise
-    _assets = [[NSMutableDictionary alloc] init];
+    assetsDictionary = [[NSMutableDictionary alloc] init];
 //    _groupAssets = [[NSMutableArray alloc] init];
     // Load
     if (NSClassFromString(@"PHAsset")) {
@@ -171,16 +174,31 @@
             group.localIdentifier = collection.localIdentifier;
             [groupAssets addObject:group];
             NSLog(@"collection.localizedLocationNames = %@",collection.localizedLocationNames);
-            if ([_loadingDelegate respondsToSelector:@selector(didAddedGroup:fromPhotoManager:)]) {
-                [_loadingDelegate didAddedGroup:group fromPhotoManager:self];
-            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if ([_loadingDelegate respondsToSelector:@selector(didAddedGroup:fromPhotoManager:)]) {
+                    [_loadingDelegate didAddedGroup:group fromPhotoManager:self];
+                }
+            });
+            
             [self enumerateAssetListWithGroup:group];
             
         }
     }
-    _groupAssets = [NSMutableArray arrayWithArray:groupAssets];
-//    [[CDPhotoManager sharePhotos] groupAssets]
+    groupAssetsList = [NSMutableArray arrayWithArray:groupAssets];
     
+    // 更新当前相册集合
+    _groupAssets = [NSMutableArray arrayWithArray:groupAssetsList];
+    _assets = [NSMutableDictionary dictionaryWithDictionary:assetsDictionary];
+    
+    // 清空缓存区
+    groupAssetsList = nil;
+    assetsDictionary = nil;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([_loadingDelegate respondsToSelector:@selector(photoManagerDidRefreshedAlbumAssets)]) {
+            [_loadingDelegate photoManagerDidRefreshedAlbumAssets];
+        }
+    });
 }
 
 - (void)enumerateAssetListWithGroup:(CDGroupAsset *)group
@@ -210,16 +228,20 @@
                     cdPhoto.assetType = AssetMediaTypeUnknown;
                 }
                 [tempArray addObject:cdPhoto];
-                if ([_loadingDelegate respondsToSelector:@selector(didAddedAsset:onGroup:fromPhotoManager:)]) {
-                    [_loadingDelegate didAddedAsset:cdPhoto onGroup:group fromPhotoManager:self];
-                }
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if ([_loadingDelegate respondsToSelector:@selector(didAddedAsset:onGroup:fromPhotoManager:)]) {
+                        [_loadingDelegate didAddedAsset:cdPhoto onGroup:group fromPhotoManager:self];
+                    }
+                });
+                
             } @catch (NSException *exception) {
                 NSLog(@"%@ ------> [%@  （%zi）]",exception,[[NSString stringWithFormat:@"%s",__FILE__] lastPathComponent],__LINE__);
             } @finally {
                 
             }
         }
-        [self.assets setObject:tempArray forKey:group.localIdentifier];
+        [assetsDictionary setObject:tempArray forKey:group.localIdentifier];
     }
 }
 
