@@ -27,6 +27,9 @@
 #define SCREEN_HEIGHT  [UIScreen mainScreen].bounds.size.height
 
 
+#define iOS8_UP ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+
+
 /**
  *  获得指定颜色值的实例
  *  @param r R值

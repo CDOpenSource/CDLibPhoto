@@ -11,7 +11,10 @@
 #import <Photos/Photos.h>
 #import "CDPhotoAsset.h"
 #import "CDAlbumGroupViewController.h"
+#import "CDCameraViewController.h"
+
 @class CDPhotoManager;
+
 
 @protocol CDPhotoManagerLoadingAseetDelegate <NSObject>
 @optional

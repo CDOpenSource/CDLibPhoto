@@ -158,11 +158,11 @@
     UICollectionViewFlowLayout *flow = (UICollectionViewFlowLayout *)collectionViewLayout;
     
     CGFloat width;
-    if (collectionView.cd_width > 320) {
+//    if (collectionView.cd_width > 320) {
         width = (collectionView.cd_width - flow.sectionInset.left - flow.sectionInset.right - MarginValue*3.0)/4.0 - 0.0;
-    } else {
-        width = (collectionView.cd_width - flow.sectionInset.left - flow.sectionInset.right - MarginValue*2.0)/3.0 - 0.0;
-    }
+//    } else {
+//        width = (collectionView.cd_width - flow.sectionInset.left - flow.sectionInset.right - MarginValue*2.0)/3.0 - 0.0;
+//    }
     CGSize size = CGSizeMake(width, width);
     
     return size;

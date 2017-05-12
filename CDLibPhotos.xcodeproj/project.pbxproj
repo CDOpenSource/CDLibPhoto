@@ -16,6 +16,7 @@
 		3725F7771E35F08700B9199F /* photo_image_selected_on_status_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3725F7751E35F08700B9199F /* photo_image_selected_on_status_icon.png */; };
 		3725F77A1E35F16300B9199F /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 3725F7791E35F16300B9199F /* UIView+Frame.m */; };
 		3725F78B1E35FDF700B9199F /* CDPhotoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3725F7891E35FDF700B9199F /* CDPhotoManager.m */; };
+		375163161EC5B418002F33D1 /* CDCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 375163151EC5B418002F33D1 /* CDCameraViewController.m */; };
 		37A397E01E36F71D0050A82A /* navigation_back.png in Resources */ = {isa = PBXBuildFile; fileRef = 37A397DF1E36F71D0050A82A /* navigation_back.png */; };
 		37A397EF1E37344D0050A82A /* CDPhotoAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A397E31E37344D0050A82A /* CDPhotoAsset.m */; };
 		37A397F01E37344D0050A82A /* CDPhotoCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A397E71E37344D0050A82A /* CDPhotoCollectionCell.m */; };
@@ -42,6 +43,8 @@
 		3725F77D1E35F24B00B9199F /* CDLibPhotoPrefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDLibPhotoPrefix.pch; sourceTree = "<group>"; };
 		3725F7881E35FDF700B9199F /* CDPhotoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDPhotoManager.h; sourceTree = "<group>"; };
 		3725F7891E35FDF700B9199F /* CDPhotoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDPhotoManager.m; sourceTree = "<group>"; };
+		375163141EC5B418002F33D1 /* CDCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDCameraViewController.h; sourceTree = "<group>"; };
+		375163151EC5B418002F33D1 /* CDCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDCameraViewController.m; sourceTree = "<group>"; };
 		37A397DF1E36F71D0050A82A /* navigation_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigation_back.png; sourceTree = "<group>"; };
 		37A397E21E37344D0050A82A /* CDPhotoAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDPhotoAsset.h; sourceTree = "<group>"; };
 		37A397E31E37344D0050A82A /* CDPhotoAsset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDPhotoAsset.m; sourceTree = "<group>"; };
@@ -199,6 +202,8 @@
 				37A397EE1E37344D0050A82A /* CDPhotoAssetViewController.m */,
 				37A397EB1E37344D0050A82A /* CDBrowsePhotoViewController.h */,
 				37A397EC1E37344D0050A82A /* CDBrowsePhotoViewController.m */,
+				375163141EC5B418002F33D1 /* CDCameraViewController.h */,
+				375163151EC5B418002F33D1 /* CDCameraViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -350,6 +355,7 @@
 			files = (
 				3725F77A1E35F16300B9199F /* UIView+Frame.m in Sources */,
 				372044951E34B73E0025FDA2 /* AppDelegate.m in Sources */,
+				375163161EC5B418002F33D1 /* CDCameraViewController.m in Sources */,
 				37A397FA1E3735850050A82A /* CDMainTestViewController.m in Sources */,
 				372044921E34B73E0025FDA2 /* main.m in Sources */,
 				37A397F21E37344D0050A82A /* CDBrowsePhotoViewController.m in Sources */,
