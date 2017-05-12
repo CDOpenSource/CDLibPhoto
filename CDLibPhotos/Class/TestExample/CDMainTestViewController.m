@@ -10,7 +10,7 @@
 #import "CDTestCollectionCell.h"
 #import "CDPhotoManager.h"
 
-@interface CDMainTestViewController () <UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+@interface CDMainTestViewController () <UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,CDCameraViewControllerDelegate>
 @property (nonatomic,strong) NSArray <CDPhotoAsset *> *selectedPhotoList;
 @property (nonatomic,strong) UICollectionView *collectionViewTest;
 @end
@@ -70,11 +70,12 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     // 进入相册
-    [CDPhotoManager showSystemPhotoAlbumListByController:self];
+//    [CDPhotoManager showSystemPhotoAlbumListByController:self];
     
     // 进入相机
-    //    CDCameraViewController *cameraVC = [[CDCameraViewController alloc] init];
-    //    [self presentViewController:cameraVC animated:YES completion:^{}];
+            CDCameraViewController *cameraVC = [[CDCameraViewController alloc] init];
+        cameraVC.cameraDelegate = self;
+            [self presentViewController:cameraVC animated:YES completion:^{}];
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -92,6 +93,12 @@
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
     return 0;
+}
+
+#pragma mark -  CDCameraViewController Delegate Method
+- (void)cameraViewController:(CDCameraViewController *)cameraVC didTakeImage:(UIImage *)image fromInfo:(NSDictionary *)info
+{
+    
 }
 
 #pragma mark - Getter Method

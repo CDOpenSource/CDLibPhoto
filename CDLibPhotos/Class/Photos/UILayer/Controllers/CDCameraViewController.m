@@ -92,9 +92,9 @@
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
 {
     if (error) {
-        NSLog(@"保存失败");
+        NSLog(@"保存失败--->%@",error);
     } else {
-        NSLog(@"保存成功");
+        NSLog(@"保存成功--->%@",contextInfo);
     }
 }
 
