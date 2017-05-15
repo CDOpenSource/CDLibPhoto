@@ -10,51 +10,8 @@
 #import "CDPhotoManager.h"
 
 
-@interface CDGroupAsset ()
-@property (nonatomic,strong) UIImage *coverImage;
-@end
 
-@implementation CDGroupAsset
-
-// 返回相册的封面缩略图
-- (void)getCoverImageComplete:(void(^)(UIImage *image))complete
-{
-    UIScreen *screen = [UIScreen mainScreen];
-    if ([_coverImage isKindOfClass:[UIImage class]]) {
-        complete(_coverImage);
-        return;
-    } else{
-        PHFetchOptions *options = [[PHFetchOptions alloc] init];
-        options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
-        PHFetchResult *resultList = [PHAsset fetchAssetsInAssetCollection:self.phCollection options:options];
-        PHAsset *asset = [resultList firstObject];
-        // 开始生成图片
-        CGFloat imageSize = MAX(screen.bounds.size.width, screen.bounds.size.height) * 0.2;
-        CGSize imageTargetSize = CGSizeMake(imageSize * screen.scale, imageSize * screen.scale);
-        [CDPhotoManager getImageWithAsset:asset byTargetSize:imageTargetSize completeNotify:^(UIImage *image, NSDictionary *info) {
-            CGFloat fitWidth = image.size.width > image.size.height ? image.size.height : image.size.width;
-            CGSize resize = CGSizeMake(fitWidth, fitWidth);
-            _coverImage = [CDPhotoManager resizeImage:image size:resize];
-            complete(_coverImage);
-        }];
-    }
-}
-
-#pragma mark - Setter Methos
-- (void)setPhCollection:(PHAssetCollection *)phCollection
-{
-    _phCollection = phCollection;
-    _coverImage = nil;
-}
-
-@end
-
-
-
-
-
-
-
+#pragma mark - ——————【CDPhotoAsset】——————
 
 @interface CDPhotoAsset ()
 @property (nonatomic,strong) UIImage *thumbnailImage;
@@ -79,7 +36,7 @@
             complete(imageType,_thumbnailImage);
             return;
         } else{
-            imageSize = MAX(screen.bounds.size.width, screen.bounds.size.height) * 0.3;
+            imageSize = MAX(screen.bounds.size.width, screen.bounds.size.height) * 0.2;
         }
     }
     
@@ -109,3 +66,93 @@
 }
 
 @end
+
+
+
+
+
+
+
+#pragma mark - ——————【CDGroupAsset】——————
+@interface CDGroupAsset ()
+@property (nonatomic,strong) UIImage *coverImage;
+@property (nonatomic,copy) NSString *coverImageLocalIdentifier;
+@end
+
+@implementation CDGroupAsset
+
+// 返回相册的封面缩略图
+- (void)getCoverImageComplete:(void(^)(UIImage *image))complete
+{
+    PHFetchOptions *options = [[PHFetchOptions alloc] init];
+    options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
+    PHFetchResult *resultList = [PHAsset fetchAssetsInAssetCollection:self.phCollection options:options];
+    __block PHAsset *asset = [resultList firstObject];
+    
+    if ([_coverImage isKindOfClass:[UIImage class]] && [_coverImageLocalIdentifier isEqualToString:asset.localIdentifier]) {
+        complete(_coverImage);
+        return;
+    } else{
+        UIScreen *screen = [UIScreen mainScreen];
+        // 开始生成图片
+        CGFloat imageSize = MAX(screen.bounds.size.width, screen.bounds.size.height) * 0.2;
+        CGSize imageTargetSize = CGSizeMake(imageSize * screen.scale, imageSize * screen.scale);
+        [CDPhotoManager getImageWithAsset:asset byTargetSize:imageTargetSize completeNotify:^(UIImage *image, NSDictionary *info) {
+            CGFloat fitWidth = image.size.width > image.size.height ? image.size.height : image.size.width;
+            CGSize resize = CGSizeMake(fitWidth, fitWidth);
+            _coverImage = [CDPhotoManager resizeImage:image size:resize];
+            if ([_coverImage isKindOfClass:[UIImage class]]) {
+                _coverImageLocalIdentifier = asset.localIdentifier;
+            }
+            complete(_coverImage);
+        }];
+    }
+}
+
+- (NSString *)getGroupName
+{
+    return self.phCollection.localizedTitle;
+}
+
+- (NSString *)getGroupIdentifier
+{
+    return self.phCollection.localIdentifier;
+}
+
+#pragma mark - Setter Methos
+- (void)setPhCollection:(PHAssetCollection *)phCollection
+{
+    _phCollection = phCollection;
+    _coverImage = nil;
+}
+
+
+#pragma mark - Getter Method
+- (NSMutableArray <CDPhotoAsset *> *)photoAssets
+{
+    if ([_photoAssets isKindOfClass:[NSMutableArray class]] == NO) {
+        _photoAssets = [[NSMutableArray alloc] init];
+    }
+    return _photoAssets;
+}
+
+@end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -23,17 +23,16 @@
     
     self.title = @"我的相册";
     self.view.backgroundColor = [UIColor whiteColor];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
     // 请求系统相册
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        [CDPhotoManager requestAuthorizationOnComplete:^(PHAuthorizationStatus status) {
-            if (PHAuthorizationStatusAuthorized == status) {
-                [[CDPhotoManager sharePhotos] loadedAssetsCallbackDelegate:self];
-            } else {
-                NSLog(@"授权状态错误！");
-            }
-        }];
-    });
+    [CDPhotoManager requestAuthorizationOnComplete:^(PHAuthorizationStatus status) {
+        if (PHAuthorizationStatusAuthorized == status) {
+            [[CDPhotoManager sharePhotos] loadedAssetsCallbackDelegate:self];
+        } else {
+            NSLog(@"授权状态错误！");
+        }
+    }];
     
     
     self.tableViewShow.delegate = self;
@@ -71,7 +70,7 @@
     UILabel *labelTitle = [self retrunLabelTitleOnCell:cell];
     
     CDGroupAsset *group = [[[CDPhotoManager sharePhotos] groupAssets] objectAtIndex:indexPath.row];
-    labelTitle.text = [NSString stringWithFormat:@"%@ (%zi)",group.collectionName,group.photoCounts];
+    labelTitle.text = [NSString stringWithFormat:@"%@ (%zi)",group.getGroupName,group.photoAssets.count];
     [group getCoverImageComplete:^(UIImage *image) {
         headerImageView.image = image;
     }];
@@ -85,9 +84,9 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     CDGroupAsset *group = [[[CDPhotoManager sharePhotos] groupAssets] objectAtIndex:indexPath.row];
-    NSArray *photoList = [NSArray arrayWithArray:[[[CDPhotoManager sharePhotos] assets] objectForKey:group.localIdentifier]];
+    NSArray *photoList = [NSArray arrayWithArray:group.photoAssets];
     CDPhotoAssetViewController *photoController = [[CDPhotoAssetViewController alloc] initWithPhotoList:photoList];
-    photoController.title = [NSString stringWithFormat:@"%@ (%zi)",group.collectionName,group.photoCounts];
+    photoController.title = [NSString stringWithFormat:@"%@ (%zi)",group.getGroupName,group.photoAssets.count];
     [self.navigationController pushViewController:photoController animated:YES];
 }
 
@@ -98,7 +97,9 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[[CDPhotoManager sharePhotos] assets] count];
+    NSInteger count = [[[CDPhotoManager sharePhotos] groupAssets] count];
+    NSLog(@"numberOfRowsInSection = %zi",count);
+    return count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -152,15 +153,22 @@
 - (void)didAddedGroup:(CDGroupAsset *)group fromPhotoManager:(CDPhotoManager *)manager
 {
     static NSDate *lastDate;
-    if ([lastDate isKindOfClass:[NSDate class]] && ([lastDate timeIntervalSinceNow] < 1.0)) {
+    if ([lastDate isKindOfClass:[NSDate class]] && (fabs([lastDate timeIntervalSinceNow]) < 0.5)) {
+        NSLog(@"[lastDate timeIntervalSinceNow]1 = %f",fabs([lastDate timeIntervalSinceNow]));
         return;
+    } else {
+        NSLog(@"[lastDate timeIntervalSinceNow]2 = %f",fabs([lastDate timeIntervalSinceNow]));
     }
+    
+    lastDate = [NSDate date];
     
     [self.tableViewShow reloadData];
 }
 
 - (void)photoManagerDidRefreshedAlbumAssets
 {
+    NSInteger count = [[[CDPhotoManager sharePhotos] groupAssets] count];
+    NSLog(@"numberOfRowsInSection22222 = %zi",count);
     [self.tableViewShow reloadData];
 }
 
@@ -181,7 +189,7 @@
         
         [self.view addSubview:_tableViewShow];
         [_tableViewShow mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.view);
+            make.top.equalTo(self.view).offset(64.0);
             make.left.equalTo(self.view);
             make.right.equalTo(self.view);
             make.bottom.equalTo(self.view);

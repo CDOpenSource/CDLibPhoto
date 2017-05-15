@@ -13,22 +13,9 @@
 
 
 
-@interface CDGroupAsset : NSObject
-@property (nonatomic,strong) PHAssetCollection *phCollection;
-@property (nonatomic,assign) NSInteger photoCounts;
-@property (nonatomic,retain) NSString *collectionName;
-@property (nonatomic,retain) NSString *localIdentifier;
 
+#pragma mark - ——————【CDPhotoAsset】——————
 
-- (void)getCoverImageComplete:(void(^)(UIImage *image))complete;
-
-@end
-
-
-
-
-
-#pragma mark - PHAsset
 typedef enum : NSUInteger {
     ThumbnailImageType = 0,
     FullImageType = 1,
@@ -54,3 +41,29 @@ typedef enum : NSUInteger {
 - (void)getImageType:(CretaeImageType)imageType Complete:(void(^)(CretaeImageType type, UIImage *image))complete;
 
 @end
+
+
+
+
+
+
+#pragma mark - ——————【CDGroupAsset】——————
+
+@interface CDGroupAsset : NSObject
+@property (nonatomic,strong) PHAssetCollection *phCollection;
+@property (nonatomic,strong) NSMutableArray <CDPhotoAsset *> *photoAssets;
+
+
+- (void)getCoverImageComplete:(void(^)(UIImage *image))complete;
+- (NSString *)getGroupName;
+- (NSString *)getGroupIdentifier;
+
+@end
+
+
+
+
+
+
+
+

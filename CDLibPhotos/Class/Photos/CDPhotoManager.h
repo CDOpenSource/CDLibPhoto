@@ -26,10 +26,9 @@
 
 
 @interface CDPhotoManager : NSObject
-
-@property (nonatomic, strong ,readonly) NSMutableDictionary <NSString *,NSArray <CDPhotoAsset *>*> *assets;
+// 系统相册集合，只读
 @property (nonatomic, strong ,readonly) NSMutableArray <CDGroupAsset *> *groupAssets;
-
+// 已经被选中的图片集合，可读可写
 @property (nonatomic, strong) NSMutableArray <CDPhotoAsset *> *selectedAssetList;
 
 /**

@@ -14,13 +14,15 @@
 
 @property (nonatomic, strong) ALAssetsLibrary *ALAssetsLibrary;
 
+@property (nonatomic, strong) dispatch_queue_t photoCurrentQueue;
+
 @end
 
-/*** 缓存区 ***/
-static NSMutableDictionary <NSString *,NSArray <CDPhotoAsset *>*> *assetsDictionary;
-static NSMutableArray <CDGroupAsset *> *groupAssetsList;
+
 
 @implementation CDPhotoManager
+@synthesize groupAssets = _groupAssets;
+
 
 + (CDPhotoManager *)sharePhotos
 {
@@ -28,6 +30,7 @@ static NSMutableArray <CDGroupAsset *> *groupAssetsList;
     static dispatch_once_t once;
     dispatch_once(&once, ^{
         shared = [[self alloc]init];
+        shared.photoCurrentQueue = dispatch_queue_create("com.photoManager.global", DISPATCH_QUEUE_CONCURRENT);
         [shared loadedAssets];
     });
     return shared;
@@ -134,8 +137,12 @@ static NSMutableArray <CDGroupAsset *> *groupAssetsList;
 - (void)performLoadAssetResource
 {
     // Initialise
-    assetsDictionary = [[NSMutableDictionary alloc] init];
+//    assetsDictionary = [[NSMutableDictionary alloc] init];
 //    _groupAssets = [[NSMutableArray alloc] init];
+    if ([_groupAssets isKindOfClass:[NSMutableArray class]] == NO) {
+        _groupAssets = [[NSMutableArray alloc] init];
+    }
+    
     // Load
     if (NSClassFromString(@"PHAsset")) {
         // Photos library iOS >= 8
@@ -148,69 +155,89 @@ static NSMutableArray <CDGroupAsset *> *groupAssetsList;
 //    PHFetchOptions *options = [[PHFetchOptions alloc] init];
 //    options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"localizedTitle" ascending:NO]];
     
-    PHFetchOptions *options = [PHFetchOptions new];
-    options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:NO]];
-
-    
-    NSMutableArray *groupAssets = [[NSMutableArray alloc] init];
-    NSArray *allAlbum = @[@(PHAssetCollectionTypeSmartAlbum),@(PHAssetCollectionTypeAlbum)];
-    for (NSInteger j = 0; j < [allAlbum count]; j++) {
-        PHFetchResult *result = [PHAssetCollection fetchAssetCollectionsWithType:[allAlbum[j] integerValue] subtype:PHAssetCollectionSubtypeAny options:options];
+    dispatch_sync(self.photoCurrentQueue, ^{
         
-        for (NSInteger i = 0; i < [result count]; i++) {
-            PHAssetCollection *collection = [result objectAtIndex:i];
-            NSInteger count = [[PHAsset fetchAssetsInAssetCollection:collection options:nil] count];
-            if (count == 0) {
-                continue;
-            }
+        PHFetchOptions *options = [PHFetchOptions new];
+        options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:NO]];
+        
+        NSMutableArray *groupAssets = [[NSMutableArray alloc] init];
+        
+        NSArray *allAlbum = @[@(PHAssetCollectionTypeSmartAlbum),@(PHAssetCollectionTypeAlbum)];
+        for (NSInteger j = 0; j < [allAlbum count]; j++) {
+            PHFetchResult *result = [PHAssetCollection fetchAssetCollectionsWithType:[allAlbum[j] integerValue] subtype:PHAssetCollectionSubtypeAny options:options];
             
-            NSLog(@"------------------------------------------ Album -------------------------------------------");
-            NSLog(@"j = %zi,i = %zi -----> localizedTitle = %@;\n",j,i,collection.localizedTitle);
-            NSLog(@"count = %zi;",count);
-            CDGroupAsset *group = [[CDGroupAsset alloc] init];
-            group.phCollection = collection;
-            group.photoCounts = count;
-            group.collectionName = collection.localizedTitle;
-            group.localIdentifier = collection.localIdentifier;
-            [groupAssets addObject:group];
-            NSLog(@"collection.localizedLocationNames = %@",collection.localizedLocationNames);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if ([_loadingDelegate respondsToSelector:@selector(didAddedGroup:fromPhotoManager:)]) {
-                    [_loadingDelegate didAddedGroup:group fromPhotoManager:self];
+            for (NSInteger i = 0; i < [result count]; i++) {
+                PHAssetCollection *collection = [result objectAtIndex:i];
+                // 过滤照片数量为0的相册
+                NSInteger count = [[PHAsset fetchAssetsInAssetCollection:collection options:nil] count];
+                if (count == 0) {
+                    continue;
                 }
-            });
-            
-            [self enumerateAssetListWithGroup:group];
-            
+                
+                NSLog(@"------------------------------- Album --------------------------------");
+                NSLog(@"localizedTitle = %@; count = %zi;\n",collection.localizedTitle,count);
+                
+                CDGroupAsset *newGroup;
+                BOOL finded = NO;
+                for (CDGroupAsset *oldGroup in _groupAssets) {
+                    if ([oldGroup.getGroupIdentifier isEqualToString:collection.localIdentifier]) {
+                        newGroup = oldGroup;
+                        finded = YES;
+                        break;
+                    }
+                }
+                // 是否已近存在此相册
+                if ([newGroup isKindOfClass:[CDGroupAsset class]] == NO) {
+                    newGroup = [[CDGroupAsset alloc] init];
+                    newGroup.phCollection = collection;
+                }
+                
+                // 迭代相册中的图片
+                NSMutableArray *photoList = [self enumerateAssetListWithGroup:newGroup];
+                newGroup.photoAssets = [NSMutableArray arrayWithArray:photoList];
+                
+                if (newGroup.photoAssets.count > 0) {
+                    [groupAssets addObject:newGroup];
+                    // 通知代理对象，此相册已经更新
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if ([_loadingDelegate respondsToSelector:@selector(didAddedGroup:fromPhotoManager:)]) {
+                            [_loadingDelegate didAddedGroup:newGroup fromPhotoManager:self];
+                        }
+                    });
+                    
+                } else {
+                    
+                    if (finded) {
+                        [_groupAssets removeObject:newGroup];
+                    }
+                    NSLog(@"相册%@中没有找到图片！",collection.localizedTitle);
+                }
+            }
         }
-    }
-    groupAssetsList = [NSMutableArray arrayWithArray:groupAssets];
-    
-    // 更新当前相册集合
-    _groupAssets = [NSMutableArray arrayWithArray:groupAssetsList];
-    _assets = [NSMutableDictionary dictionaryWithDictionary:assetsDictionary];
-    
-    // 清空缓存区
-    groupAssetsList = nil;
-    assetsDictionary = nil;
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if ([_loadingDelegate respondsToSelector:@selector(photoManagerDidRefreshedAlbumAssets)]) {
-            [_loadingDelegate photoManagerDidRefreshedAlbumAssets];
-        }
+        
+        // 更新当前相册集合
+        _groupAssets = [NSMutableArray arrayWithArray:groupAssets];
+        
+        // 通知代理对象系统相册已经全部更新完成
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([_loadingDelegate respondsToSelector:@selector(photoManagerDidRefreshedAlbumAssets)]) {
+                [_loadingDelegate photoManagerDidRefreshedAlbumAssets];
+            }
+        });
     });
+                  
 }
 
-- (void)enumerateAssetListWithGroup:(CDGroupAsset *)group
+- (NSMutableArray <CDPhotoAsset *> *)enumerateAssetListWithGroup:(CDGroupAsset *)group
 {
     PHFetchOptions *options = [[PHFetchOptions alloc] init];
     options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
     PHFetchResult *resultList = [PHAsset fetchAssetsInAssetCollection:group.phCollection options:options];
     
-    if ([resultList count] == 0) {
-        return;
-    } else {
-        NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+    
+    NSMutableArray *tempArray = [[NSMutableArray alloc] init];
+    
+    if ([resultList count] > 0) {
         for (NSInteger i = 0; i < [resultList count]; i ++) {
             PHAsset *asset = [resultList objectAtIndex:i];
             @try {
@@ -237,12 +264,11 @@ static NSMutableArray <CDGroupAsset *> *groupAssetsList;
                 
             } @catch (NSException *exception) {
                 NSLog(@"%@ ------> [%@  （%zi）]",exception,[[NSString stringWithFormat:@"%s",__FILE__] lastPathComponent],__LINE__);
-            } @finally {
-                
-            }
+            } @finally {}
         }
-        [assetsDictionary setObject:tempArray forKey:group.localIdentifier];
     }
+    
+    return tempArray;
 }
 
 
@@ -253,57 +279,73 @@ static NSMutableArray <CDGroupAsset *> *groupAssetsList;
 // Load from photos library
 + (NSInteger)getImageWithAsset:(PHAsset *)asset byTargetSize:(CGSize)targetSize completeNotify:(void(^)(UIImage *image,NSDictionary *info))notify
 {
-    PHImageManager *imageManager = [PHImageManager defaultManager];
+    __block PHImageRequestID id_num;
     
-    PHImageRequestOptions *options = [PHImageRequestOptions new];
-    options.networkAccessAllowed = YES;
-    options.resizeMode = PHImageRequestOptionsResizeModeExact;
-    options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
-    options.synchronous = NO;
-    options.progressHandler = ^(double progress, NSError *error, BOOL *stop, NSDictionary *info) {
-        NSLog(@"progress = %f\ninfo = %@",progress,info);
-    };
+    dispatch_sync([CDPhotoManager sharePhotos].photoCurrentQueue, ^{
+        
+        PHImageManager *imageManager = [PHImageManager defaultManager];
+        
+        PHImageRequestOptions *options = [PHImageRequestOptions new];
+        options.networkAccessAllowed = YES;
+        options.resizeMode = PHImageRequestOptionsResizeModeExact;
+        options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+        options.synchronous = NO;
+        options.progressHandler = ^(double progress, NSError *error, BOOL *stop, NSDictionary *info) {
+            NSLog(@"progress = %f\ninfo = %@",progress,info);
+        };
+        
+        // 按指定尺寸生成图片
+        id_num = [imageManager requestImageForAsset:asset targetSize:targetSize contentMode:PHImageContentModeAspectFit options:options resultHandler:^(UIImage *result, NSDictionary *info) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSLog(@"requestImageForAsset:resultHandler: -> %@",info);
+                notify ? notify(result,info) : nil;
+            });
+        }];
+        
+    });
     
-    // 按指定尺寸生成图片
-    PHImageRequestID id_num = [imageManager requestImageForAsset:asset targetSize:targetSize contentMode:PHImageContentModeAspectFit options:options resultHandler:^(UIImage *result, NSDictionary *info) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"requestImageForAsset:resultHandler: -> %@",info);
-            notify ? notify(result,info) : nil;
-        });
-    }];
     return id_num;
     
 }
 
 - (void)saveImageWithAsset:(PHAsset *)asset toSavePathDirectory:(NSString *)savePathDir completeNotify:(void(^)(BOOL saveResult,NSString *saveFullPath))notify
 {
-    PHImageManager *imageManager = [PHImageManager defaultManager];
-    
-    PHImageRequestOptions *options = [PHImageRequestOptions new];
-    options.networkAccessAllowed = YES;
-    options.resizeMode = PHImageRequestOptionsResizeModeExact;
-    options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
-    options.synchronous = NO;
-    options.progressHandler = ^(double progress, NSError *error, BOOL *stop, NSDictionary *info) {
-        NSLog(@"progress = %f\ninfo = %@",progress,info);
-    };
-    
-    [imageManager requestImageDataForAsset:asset options:options resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
+    dispatch_sync([CDPhotoManager sharePhotos].photoCurrentQueue, ^{
         
-        NSString *url = [[info objectForKey:@"PHImageFileURLKey"] absoluteString];
-        NSRange targetRang = [url rangeOfString:@"DCIM"];
-        NSString *shortPath;
-        if (targetRang.length > 0) {
-            shortPath = [url substringWithRange:NSMakeRange(targetRang.location, url.length - targetRang.location)];
-        } else {
-            shortPath = [url lastPathComponent];
-        }
-        NSString *path = [savePathDir stringByAppendingPathComponent:shortPath];
-        [[NSFileManager defaultManager] createDirectoryAtPath:[path stringByDeletingLastPathComponent] withIntermediateDirectories:YES attributes:nil error:nil];
-        BOOL result = [[NSFileManager defaultManager] createFileAtPath:path contents:imageData attributes:nil];
-        notify ? notify(result,path) : nil;
+        PHImageManager *imageManager = [PHImageManager defaultManager];
         
-    }];
+        PHImageRequestOptions *options = [PHImageRequestOptions new];
+        options.networkAccessAllowed = YES;
+        options.resizeMode = PHImageRequestOptionsResizeModeExact;
+        options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+        options.synchronous = NO;
+        options.progressHandler = ^(double progress, NSError *error, BOOL *stop, NSDictionary *info) {
+            NSLog(@"progress = %f\ninfo = %@",progress,info);
+        };
+        
+        [imageManager requestImageDataForAsset:asset options:options resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
+            
+            NSString *url = [[info objectForKey:@"PHImageFileURLKey"] absoluteString];
+            NSRange targetRang = [url rangeOfString:@"DCIM"];
+            NSString *shortPath;
+            if (targetRang.length > 0) {
+                shortPath = [url substringWithRange:NSMakeRange(targetRang.location, url.length - targetRang.location)];
+            } else {
+                shortPath = [url lastPathComponent];
+            }
+            
+            NSString *path = [savePathDir stringByAppendingPathComponent:shortPath];
+            [[NSFileManager defaultManager] createDirectoryAtPath:[path stringByDeletingLastPathComponent] withIntermediateDirectories:YES attributes:nil error:nil];
+            BOOL result = [[NSFileManager defaultManager] createFileAtPath:path contents:imageData attributes:nil];
+            
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                notify ? notify(result,path) : nil;
+            });
+            
+        }];
+        
+    });
 }
 
 @end

@@ -70,12 +70,12 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     // 进入相册
-//    [CDPhotoManager showSystemPhotoAlbumListByController:self];
+    [CDPhotoManager showSystemPhotoAlbumListByController:self];
     
     // 进入相机
-            CDCameraViewController *cameraVC = [[CDCameraViewController alloc] init];
-        cameraVC.cameraDelegate = self;
-            [self presentViewController:cameraVC animated:YES completion:^{}];
+//            CDCameraViewController *cameraVC = [[CDCameraViewController alloc] init];
+//        cameraVC.cameraDelegate = self;
+//            [self presentViewController:cameraVC animated:YES completion:^{}];
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath

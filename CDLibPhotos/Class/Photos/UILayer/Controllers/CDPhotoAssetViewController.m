@@ -45,6 +45,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
     [self initBottomView];
     
@@ -105,7 +106,7 @@
 {
     NSMutableArray *tempSelected = [[NSMutableArray alloc] init];
     CDGroupAsset *group = [[[CDPhotoManager sharePhotos] groupAssets] firstObject];
-    NSArray *allAsset = [[[CDPhotoManager sharePhotos] assets] objectForKey:group.localIdentifier];
+    NSArray *allAsset = [NSArray arrayWithArray:group.photoAssets];
     for (CDPhotoAsset *photo in allAsset) {
         if ([_selectedPhotoLocalIdentifierList containsObject:photo.localIdentifier]) {
             [tempSelected addObject:photo];
@@ -251,7 +252,7 @@
         _collectionViewPhotos.alwaysBounceVertical = YES;
         [self.view addSubview:_collectionViewPhotos];
         [_collectionViewPhotos mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.view);
+            make.top.equalTo(self.view).offset(64.0);
             make.left.equalTo(self.view).offset(0);
             make.right.equalTo(self.view).offset(0);
             make.bottom.equalTo(self.view).offset(-40);
